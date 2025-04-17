@@ -1,0 +1,26 @@
+var save = Args.Save;
+var key = Args.Key;
+
+var size = 4096;
+
+var numChunks = "" + (save.length / size);
+var dotIndex = numChunks.indexOf(".");
+
+if(dotIndex != -1){
+  numChunks = parseInt(numChunks.substr(0, dotIndex)) + 1;
+}
+
+var i = 0;
+var o = 0;
+
+API.storage.set({key: key + "Length", value: numChunks});
+
+while(i < numChunks)
+{
+  API.storage.set({key: key + i, value: save.substr(o, size)});
+ 
+  i = i + 1;
+  o = o + size;
+}
+
+return numChunks;

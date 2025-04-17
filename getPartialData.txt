@@ -1,0 +1,13 @@
+var key = Args.Key;
+
+var saveLength = parseInt(API.storage.get({key: key + "Length"})[0].value);
+
+var i = 0;
+var save = "";
+while(i < saveLength){
+  var savePart = API.storage.get({key: key + i})[0].value;
+  save = save + savePart;
+  i = i + 1;
+}
+
+return save;
